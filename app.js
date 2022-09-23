@@ -12,7 +12,9 @@ require('dotenv').config()
 // import mongo db
 const mongoose = require('mongoose')
 mongoose
-  .connect('mongodb://localhost:27017/db_staycation')
+  .connect(
+    'mongodb+srv://admin_dierdragoon:dierdragoon@cluster0.uljloaq.mongodb.net/db_staycation?retryWrites=true&w=majority'
+  )
   .catch((error) => console.log(error))
 
 const indexRouter = require('./routes/index')
