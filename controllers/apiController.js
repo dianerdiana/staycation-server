@@ -119,6 +119,7 @@ module.exports = {
         phoneNumber,
         accountHolder,
         bankFrom,
+        bankId,
       } = req.body
 
       if (!req.file) {
@@ -184,6 +185,7 @@ module.exports = {
           bankFrom,
           accountHolder,
         },
+        bankId,
       }
 
       const booking = await Booking.create(newBooking)
