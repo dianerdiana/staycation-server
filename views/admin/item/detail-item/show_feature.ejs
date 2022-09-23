@@ -1,0 +1,115 @@
+<div
+  class="tab-pane fade show active mt-3"
+  id="show-feature"
+  role="tabpanel"
+  aria-labelledby="nav-show-feature-tab"
+>
+  <div class="row">
+    <div class="col-md-5">
+      <form
+        action="/admin/item/add/feature"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            placeholder="Enter name"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="qty" class="form-label">QTY</label>
+          <input
+            type="number"
+            class="form-control"
+            id="qty"
+            name="qty"
+            placeholder="Enter QTY"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="image" class="form-label">Image</label>
+          <input
+            type="file"
+            class="form-control"
+            id="image"
+            name="image"
+            required
+          />
+        </div>
+        <input type="hidden" name="itemId" value="<%= itemId %>" />
+        <button class="btn btn-primary" type="submit">Save</button>
+      </form>
+    </div>
+    <div class="col-md-7">
+      <!-- DataTables Example -->
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table
+              class="table table-bordered"
+              id="dataTable"
+              width="100%"
+              cellspacing="0"
+            >
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Name</th>
+                  <th>QTY</th>
+                  <th>Image URL</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for (let i = 0; i < feature.length; i++) { %>
+                <tr>
+                  <td><%= i + 1 %></td>
+                  <td><%= feature[i].name %></td>
+                  <td><%= feature[i].qty %></td>
+                  <td class="text-center">
+                    <img
+                      src="<% process.env.APP_URL %>/<%= feature[i].imageUrl %>"
+                      alt="imageUrl"
+                      width="30px"
+                      height="auto"
+                    />
+                  </td>
+                  <td>
+                    <form
+                      action="/admin/item/<%= itemId %>/feature/<%= feature[i].id %>?_method=DELETE"
+                      method="post"
+                    >
+                      <a
+                        href="javascript:void()"
+                        class="btn btn-warning btn-circle btn-sm btn-update"
+                        data-id="<%= feature[i].id %>"
+                        data-name="<%= feature[i].name %>"
+                        data-qty="<%= feature[i].qty %>"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </a>
+                      <button
+                        type="submit"
+                        class="btn btn-danger btn-circle btn-sm"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
