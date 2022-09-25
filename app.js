@@ -6,9 +6,9 @@ const logger = require('morgan')
 const methodOverride = require('method-override')
 const session = require('express-session')
 const flash = require('connect-flash')
+const cors = require('cors')
 
 require('dotenv').config()
-
 // import mongo db
 const mongoose = require('mongoose')
 mongoose
@@ -26,6 +26,10 @@ const apiRouter = require('./routes/api')
 
 const app = express()
 
+// configure cors
+const corsOptions = {
+  origin: 'http://localhost:3000/',
+}
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -53,7 +57,7 @@ app.use('/', indexRouter)
 app.use('/users', usersRouter)
 //admin
 app.use('/admin', adminRouter)
-app.use('/api/v1/member', apiRouter)
+app.use('/api/v1/member', cors(corsOptions), apiRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
