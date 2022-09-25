@@ -27,9 +27,9 @@ const apiRouter = require('./routes/api')
 const app = express()
 
 // configure cors
-const corsOptions = {
-  origin: 'http://localhost:3000/',
-}
+// const corsOptions = {
+//   origin: 'http://localhost:3000/',
+// }
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -52,12 +52,17 @@ app.use(
   '/sb-admin-2',
   express.static(path.join(__dirname, 'node_modules/startbootstrap-sb-admin-2'))
 )
+app.use(
+  cors({
+    origin: '*',
+  })
+)
 
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 //admin
 app.use('/admin', adminRouter)
-app.use('/api/v1/member', cors(corsOptions), apiRouter)
+app.use('/api/v1/member', apiRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
