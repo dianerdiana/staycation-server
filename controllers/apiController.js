@@ -88,7 +88,11 @@ module.exports = {
         select: '_id title price city country imageId unit',
       })
       const categories = categoryId.map((category) => {
-        category.itemId.filter((item) => item._id === id)
+        const itemFiltered = category.itemId.filter((item) => item._id === id)
+        return {
+          ...category,
+          itemId: itemFiltered,
+        }
       })
 
       const testimonial = {
