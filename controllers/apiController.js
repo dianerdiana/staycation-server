@@ -79,7 +79,15 @@ module.exports = {
       const item = await Item.findOne({ _id: id })
         .populate({ path: 'imageId', select: '_id imageUrl' })
         .populate({ path: 'featureId', select: '_id name qty imageUrl' })
-        .populate({ path: 'activityId', select: '_id name type imageUrl' })
+        .populate({
+          path: 'activityId',
+          select: '_id name type imageUrl',
+          populate: {
+            path: 'imageId',
+            select: 'imageUrl',
+            perDocumentLimit: 4,
+          },
+        })
 
       const bank = await Bank.find()
 
