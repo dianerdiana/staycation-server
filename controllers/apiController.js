@@ -82,11 +82,6 @@ module.exports = {
         .populate({
           path: 'activityId',
           select: '_id name type imageUrl',
-          populate: {
-            path: 'imageId',
-            select: 'imageUrl',
-            perDocumentLimit: 4,
-          },
         })
 
       const bank = await Bank.find()
@@ -94,6 +89,11 @@ module.exports = {
       const categoryId = await Category.find().populate({
         path: 'itemId',
         select: '_id title price city country imageId unit',
+        populate: {
+          path: 'imageId',
+          select: 'imageUrl',
+          perDocumentLimit: 4,
+        },
       })
       const categories = categoryId.map((category) => {
         const itemFiltered = category.itemId.filter((item) => item._id === id)
