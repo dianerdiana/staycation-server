@@ -90,7 +90,7 @@ module.exports = {
       const categories = categoryId.map((category) => {
         const itemFiltered = category.itemId.filter((item) => item._id === id)
         return {
-          ...category,
+          ...category._doc,
           itemId: itemFiltered,
         }
       })
@@ -108,9 +108,10 @@ module.exports = {
 
       res.status(200).json({
         ...item._doc,
+        categories,
         bank,
         testimonial,
-        categories,
+        categoryId,
       })
     } catch (error) {
       res.status(500).json({
