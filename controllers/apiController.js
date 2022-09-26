@@ -83,6 +83,11 @@ module.exports = {
 
       const bank = await Bank.find()
 
+      const categories = await Category.find().populate({
+        path: 'itemId',
+        select: '_id title price city country imageId unit',
+      })
+
       const testimonial = {
         _id: 'asd1293uasdads1',
         imageUrl: '/images/testimonial-detailspage.jpg',
@@ -98,6 +103,7 @@ module.exports = {
         ...item._doc,
         bank,
         testimonial,
+        categories,
       })
     } catch (error) {
       res.status(500).json({
