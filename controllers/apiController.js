@@ -83,14 +83,13 @@ module.exports = {
 
       const bank = await Bank.find()
 
-      const categories = await Category.find()
-        .populate({
-          path: 'itemId',
-          select: '_id title price city country imageId unit',
-        })
-        .map((category) => {
-          category.itemId.filter((item) => item._id === id)
-        })
+      const categoryId = await Category.find().populate({
+        path: 'itemId',
+        select: '_id title price city country imageId unit',
+      })
+      const categories = categoryId.map((category) => {
+        category.itemId.filter((item) => item._id === id)
+      })
 
       const testimonial = {
         _id: 'asd1293uasdads1',
